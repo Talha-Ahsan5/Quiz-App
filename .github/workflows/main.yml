@@ -1,0 +1,30 @@
+name: Quiz App Android Build
+
+on:
+  push:
+    branches: [main]
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: CheckOut Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with: 
+          channel: stable
+          cache: true
+          
+      - name: Check Flutter & Dart Version
+        run:
+          flutter --version
+          dart --version
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
